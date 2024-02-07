@@ -13,5 +13,4 @@ router.post("/login",userContrllers.loginuser);
 router.get('/userdetails',userContrllers.userdetails);
 
 
-
 module.exports =router;
