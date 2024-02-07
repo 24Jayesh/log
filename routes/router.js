@@ -12,5 +12,4 @@ router.post("/register",userContrllers.addUser);
 router.post("/login",userContrllers.loginuser);
 
 
-
 module.exports =router;
