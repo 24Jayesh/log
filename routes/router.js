@@ -10,6 +10,7 @@ const userContrllers =require('../Constrollers/usercontrollers')
 //routers
 router.post("/register",userContrllers.addUser);
 router.post("/login",userContrllers.loginuser);
+router.get('/userdetails',userContrllers.userdetails);
 
 
 

@@ -82,3 +82,19 @@ exports.loginuser =async(req,res)=>{
     }
 
 } 
+
+
+exports.userdetails=async(req,res)=>{
+    try{
+        const userData=await newUser.find();
+         console.log(userData);
+        res.send(userData)
+        // res.status(200).json(newsGetData);
+  }catch(error){
+      res.status(401).json(error);
+  }
+
+}
+
+
+
