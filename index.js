@@ -21,10 +21,16 @@ app.use(express.urlencoded({extended:false}));
 app.use(cookiParser());
 app.use(router);
 
-app.get('/api/hello', (req, res) => {
-    res.json({ message: 'Hello from serverless function!' });
+app.get('/', (req, res) => {
+     res.send("hello everyone!");
+    // res.json({ message: 'Hello from serverless function!' });
   });
   
+// app.listen(PORT,()=>{
+//     console.log(`Server is running on port ${PORT}`);
+// });
+
 app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`);
-});
+    // res.send("hello everyone!");
+    console.log("listening on port ",PORT)
+})
