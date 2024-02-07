@@ -8,13 +8,13 @@
 *.o
 
 # Ignore dependencies
-/node_modules/
+node_modules
 /bower_components/
 
 # Ignore log files and temporary files
 *.log
 *.tmp
-*.env
+.env
 
 # Ignore configuration files that may contain sensitive information
 config.ini
