@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt =require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const validator = require('validator');
+const { timeStamp } = require('console');
 const keysecret = process.env.SECRET_KEY;
 
 
@@ -42,6 +43,10 @@ const userSchema = new mongoose.Schema({
     address:{
         type:String,   
     },
+    user_image:{
+        type:String,
+       
+    },
     isActive:{
         type:Boolean,
         default:true,
@@ -50,6 +55,7 @@ const userSchema = new mongoose.Schema({
         type:Array,
         default:[],
     }
+   
     // tokens:[
     //     {
     //         token:{
@@ -61,7 +67,7 @@ const userSchema = new mongoose.Schema({
 
 
 
-})
+},{timeStamps:true})
 
 //hash password 
 userSchema.pre("save",async function(next){
@@ -69,7 +75,7 @@ userSchema.pre("save",async function(next){
         this.password=await bcrypt.hash(this.password,12);
         this.cpassword=await bcrypt.hash(this.cpassword,12);
     }
-
+    
     next();
 });
 

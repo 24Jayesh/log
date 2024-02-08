@@ -5,6 +5,8 @@ const bcrypt =require('bcryptjs');
 
 //for user registration 
 exports.addUser=async(req,res)=>{
+    const file=req.file.filename;
+    // console.log(file);
      const {fname,mobile,email,password,cpassword,address}=req.body;
      
       //checking validation
@@ -15,6 +17,7 @@ exports.addUser=async(req,res)=>{
     else{
          try{
             const preuser = await newUser.findOne({email:email})
+           
             
             if(preuser){
                 return res.status(400).json({status:"false",error:"This email is Already Exist!"})
@@ -22,12 +25,12 @@ exports.addUser=async(req,res)=>{
                return res.status(400).json({status:"false",error:"Password and Confirm Password does not match"});
             }else{
                 const finalUser =  new newUser({
-                    fname,mobile,email,password,cpassword,address
+                    fname,mobile,email,password,cpassword,address,user_image:file
                 });
 
             //password hasing 
             const storeData =await finalUser.save();
-            console.log(storeData);
+            // console.log(storeData);
            res.status(201).json({status:"true",message:'User Added Successfully!'});
             }
             
@@ -96,6 +99,46 @@ exports.userdetails=async(req,res)=>{
   }
 
 }
+
+exports.singleuserdetails=async(req,res)=>{
+    const {email}=req.body; //change with id in future
+    try{ 
+        
+        const singleuserData=await newUser.findOne({email:email});
+         console.log(singleuserData);
+        res.send(singleuserData)
+        // res.status(200).json(newsGetData);
+  }catch(error){
+      res.status(401).json({status:"false",error});
+  }
+
+}
+
+exports.updateUser=async(req,res)=>{
+     const {id} = req.params;
+     const {fname,mobile,address,user_profile}=req.body;
+
+    
+        try{ 
+            const updateuser = await newUser.findByIdAndUpdate({_id:id},{
+                fname,mobile,address,user_image:user_profile
+        },{new:true})
+       
+    
+            //password hasing 
+        // console.log(updateuser," ji ")
+            const ans =await updateuser.save();
+            console.log(ans);
+           res.status(201).json({status:"true",message:'User Added Successfully!'});
+            
+        
+            
+         }catch(error){
+             console.log("catch block error");
+            return res.status(400).json({status:"false",error});
+         }
+}
+
 
 
 
