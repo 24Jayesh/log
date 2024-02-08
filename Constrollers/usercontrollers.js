@@ -9,7 +9,7 @@ exports.addUser=async(req,res)=>{
      
       //checking validation
     if(!fname || !mobile || !email || !password || !cpassword){
-        return res.status(400).json({error:"All fields are required!"})
+        return res.status(400).json({status:"false",error:"All fields are required!"})
     }
 
     else{
@@ -17,9 +17,9 @@ exports.addUser=async(req,res)=>{
             const preuser = await newUser.findOne({email:email})
             
             if(preuser){
-                return res.status(400).json({error:"This email is Already Exist!"})
+                return res.status(400).json({status:"false",error:"This email is Already Exist!"})
             }else if(password !==cpassword){
-               return res.status(400).json({error:"Password and Confirm Password does not match"});
+               return res.status(400).json({status:"false",error:"Password and Confirm Password does not match"});
             }else{
                 const finalUser =  new newUser({
                     fname,mobile,email,password,cpassword,address
@@ -28,7 +28,7 @@ exports.addUser=async(req,res)=>{
             //password hasing 
             const storeData =await finalUser.save();
             console.log(storeData);
-           res.status(201).json({message:'User Added Successfully!'});
+           res.status(201).json({status:"true",message:'User Added Successfully!'});
             }
             
 
@@ -36,7 +36,7 @@ exports.addUser=async(req,res)=>{
             
          }catch(error){
              console.log("catch block error");
-            return res.status(400).json(error);
+            return res.status(400).json({status:"false",error});
          }
     }
 
@@ -49,7 +49,7 @@ exports.loginuser =async(req,res)=>{
 
     //check validation
     if(!email || !password){
-        return  res.status(400).json({error:"Please enter all fields!"})
+        return  res.status(400).json({status:"false",error:"Please enter all fields!"})
     } 
     else{
         try{
@@ -58,26 +58,27 @@ exports.loginuser =async(req,res)=>{
             if(userValid){
                 const isMatch = await bcrypt.compare(password,userValid.password);
                 if(!isMatch){
-                    res.status(400).json({error:"Invalid Credentials"});
+                    res.status(400).json({status:"false",error:"Invalid Credentials"});
                 }
                 else{
                     //generating token 
                     const token =await userValid.generateAuthtoken();
                    // console.log(token);
 
-                    const result = {
-                        userValid,
-                        token
-                     }
-
-                    res.status(200).json({status:200,result});
+                    // const result = {
+                    //     userValid,
+                    //     token
+                    //  }
+                    
+                
+                    res.status(200).json({status:"true",authToken:token});
                 }
             }
 
         }
         catch(error){
             console.log("catch block error");
-            return res.status(400).json(error);
+            return res.status(400).json({status:"false",error});
         }
     }
 
@@ -91,7 +92,7 @@ exports.userdetails=async(req,res)=>{
         res.send(userData)
         // res.status(200).json(newsGetData);
   }catch(error){
-      res.status(401).json(error);
+      res.status(401).json({status:"false",error});
   }
 
 }

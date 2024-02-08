@@ -49,15 +49,15 @@ const userSchema = new mongoose.Schema({
     orders:{
         type:Array,
         default:[],
-    },
-    tokens:[
-        {
-            token:{
-                type: String,
-                required:true,
-            }
-        }
-    ]
+    }
+    // tokens:[
+    //     {
+    //         token:{
+    //             type: String,
+    //             required:true,
+    //         }
+    //     }
+    // ]
 
 
 
@@ -79,8 +79,8 @@ userSchema.methods.generateAuthtoken =async  function(){
         let tokengen = jwt.sign({_id:this._id},keysecret,{
          expiresIn:"1d"
         });
-        this.tokens=this.tokens.concat({token:tokengen});
-        await this.save();
+        // this.tokens=this.tokens.concat({token:tokengen});
+        // await this.save();
         return tokengen;
     }catch(error){
          res.status(400).json(error);
