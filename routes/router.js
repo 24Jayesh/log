@@ -18,5 +18,9 @@ router.get('/singleuserdetails',userControllers.singleuserdetails);
 router.put("/updateuser/:id",upload.single("user_profile"),userControllers.updateUser);
 router.get("/logout",userControllers.logoutuser);
 
+router.post("/sendpasswordlink",userControllers.resetPasswordEmailLink);
+router.get("/forgotpassword/:id/:token",userControllers.userValid);
+router.post("/:id/:token",userControllers.updatepassword);
+
 
 module.exports =router;

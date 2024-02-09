@@ -2,6 +2,8 @@
 const newUser =require('../models/user');
 const bcrypt =require('bcryptjs');
 const nodemailer=require('nodemailer');
+const keysecret =process.env.SECRET_KEY;
+const jwt=require("jsonwebtoken");
 
 
 
@@ -174,8 +176,123 @@ exports.logoutuser =async(req,res)=>{
 }
 
 
-///forgot password
 
+
+
+//for reset password
+exports.resetPasswordEmailLink=async(req,res)=>{
+    ///console.log(req.body);
+    
+        const {email} =req.body;
+        if(!email){
+            res.status(400).json({status:400,message:"Enter Your Email"})
+        }
+    
+        try{
+            const userfind = await newUser.findOne({email:email});
+                // console.log("userfind",userfind);
+    
+              // token generate for reset password
+              const token = jwt.sign({_id:userfind._id},keysecret,{
+                expiresIn:"1d"
+            });
+            //console.log(token)
+    
+            const setusertoken = await newUser.findByIdAndUpdate({_id:userfind._id},{verifytoken:token},{new:true});
+            // console.log(setusertoken);
+    
+           // cosole.log("maile sendede")
+            if(setusertoken){
+                const mailOptions = {
+                    from:process.env.EMAIL,
+                    to:email,
+                    subject:"Sending Email For password Reset",
+                    text:`This Link Valid For 2 MINUTES http://localhost:5173/forgotpassword/${userfind.id}/${setusertoken.verifytoken}`
+                }
+    
+                transporter.sendMail(mailOptions,(error,info)=>{
+                    if(error){
+                        console.log("error",error);
+                        res.status(400).json({status:400,message:"email not send"})
+                    }else{
+                        console.log("Email sent",info.response);
+                        res.status(200).json({status:200,message:"Email sent Succsfully"})
+                    }
+                })
+    
+            }
+    
+    
+        }
+        catch(error){
+            res.status(400).json({status:400,message:"Invaid User"})
+        }
+    }
+    
+    
+    
+    //for validating the use based on id and token  for forgot time
+    exports.userValid=async(req,res)=>{
+        // consol.log(req.body);
+        const {id,token}=req.params;
+        //  console.log(id,token);
+    
+        try{
+           
+            const myuser = await newUser.findOne({_id:id,verifytoken:token});
+             //console.log(myuser)   
+    
+            const verifyToken = jwt.verify(token,keysecret);
+            // console.log(verifyToken);
+    
+            if(myuser && verifyToken._id){
+                res.status(200).json({status:200,myuser})
+            }else{
+                res.status(400).json({status:400,message:"user not exist"})
+            }
+    
+        }catch(error){
+            res.status(400).json({status:400,message:"Some issue in fecthing the data !"})
+        }
+    }
+    
+    
+    
+    //update the passowrd
+    exports.updatepassword=async(req,res)=>{
+        const {id,token}=req.params;
+        // console.log(id,token);
+        const {password}=req.body;
+        // console.log(req.body);
+    
+        try{
+           
+            const myuser = await newUser.findOne({_id:id,verifytoken:token});
+             //console.log(myuser)   
+    
+            const verifyToken = jwt.verify(token,keysecret);
+            // console.log(verifyToken);
+    
+            if(myuser && verifyToken._id){
+    
+                const newpassword = await bcrypt.hash(password,12);
+    
+                const setnewuserpass = await newUser.findByIdAndUpdate({_id:id},{password:newpassword});
+    
+                setnewuserpass.save();
+                res.status(200).json({status:200,setnewuserpass})
+    
+            }else{
+                res.status(400).json({status:400,message:"user not exist"})
+            }
+    
+        }catch(error){
+            res.status(400).json({status:400,message:"Some issue in fecthing the data !"})
+        }
+    }
+    
+    
+    
 
 
 

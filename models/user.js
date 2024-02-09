@@ -54,6 +54,9 @@ const userSchema = new mongoose.Schema({
     orders:{
         type:Array,
         default:[],
+    },     
+    verifytoken:{
+        type:String,
     }
    
     // tokens:[
