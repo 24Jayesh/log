@@ -1,6 +1,20 @@
 
 const newUser =require('../models/user');
 const bcrypt =require('bcryptjs');
+const nodemailer=require('nodemailer');
+
+
+
+
+//nodemailer config 
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:process.env.EMAIL,
+        pass:process.env.PASSWORD
+    }
+}) 
+
 
 
 //for user registration 
@@ -67,6 +81,12 @@ exports.loginuser =async(req,res)=>{
                     //generating token 
                     const token =await userValid.generateAuthtoken();
                    // console.log(token);
+
+
+                   res.cookie("usercookie",token,{
+                    expires:new Date(Date.now()+9000000),
+                    httpOnly:true
+               });
 
                     // const result = {
                     //     userValid,
@@ -138,6 +158,29 @@ exports.updateUser=async(req,res)=>{
             return res.status(400).json({status:"false",error});
          }
 }
+
+
+
+// //logout function 
+exports.logoutuser =async(req,res)=>{
+    try {
+         
+        res.clearCookie("usercookie",{path:"/login"});
+        res.status(200).json({status:200})
+
+    } catch (error) {
+        res.status(400).json({status:400,error})
+    }
+}
+
+
+///forgot password
+
+
+
+
+
+
 
 
 
