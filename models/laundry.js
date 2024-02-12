@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const {Schema,model} =require('mongoose')
 
-const laundrySchema =new mongoose.Schema({
+const laundrySchema =new Schema({
         
         clotheType:{
             type:String,
@@ -22,8 +22,7 @@ const laundrySchema =new mongoose.Schema({
         
         },
         price:{
-            // type:mongoose.Schema.Types.ObjectId,
-            //   ref='Price',
+            
             type:Number,
             required:true,
         },
@@ -36,6 +35,13 @@ const laundrySchema =new mongoose.Schema({
             required:true,
             default:1,
         }
+      
+      
+    
+      
     
 
 })
+const Model =  model('laundry',laundrySchema)
+
+module.exports =Model;
