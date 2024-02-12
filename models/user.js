@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
+const {Schema,model} = require('mongoose');
 const bcrypt =require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const validator = require('validator');
-const { timeStamp } = require('console');
 const keysecret = process.env.SECRET_KEY;
 
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   
     fname:{
         type:String,
@@ -96,5 +95,5 @@ userSchema.methods.generateAuthtoken =async  function(){
     }
 }
 
-
-module.exports =mongoose.model('users',userSchema);
+const Model = model('users',userSchema);
+module.exports =Model;
