@@ -6,6 +6,7 @@ const laundrySchema =new Schema({
             type:String,
             required:true,
         },
+        
         wash:{
             type:Boolean,
            default:false,

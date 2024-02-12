@@ -3,7 +3,7 @@ const router =new express.Router();
 
 //import controllers 
 const userControllers =require('../Constrollers/usercontrollers')
-
+const priceControllers =require('../Constrollers/pricecontrollers')
 
 //import multer
 const upload =require('../multerconfig/config')
@@ -22,5 +22,8 @@ router.post("/sendpasswordlink",userControllers.resetPasswordEmailLink);
 router.get("/forgotpassword/:id/:token",userControllers.userValid);
 router.post("/:id/:token",userControllers.updatepassword);
 
+
+//price list routers,
+router.post("/price",priceControllers.insertprice)
 
 module.exports =router;
