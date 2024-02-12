@@ -110,6 +110,7 @@ exports.loginuser =async(req,res)=>{
 } 
 
 
+//details of all users
 exports.userdetails=async(req,res)=>{
     try{
         const userData=await newUser.find();
@@ -122,6 +123,8 @@ exports.userdetails=async(req,res)=>{
 
 }
 
+
+//detials of single user
 exports.singleuserdetails=async(req,res)=>{
     const {email}=req.body; //change with id in future
     try{ 
@@ -136,6 +139,9 @@ exports.singleuserdetails=async(req,res)=>{
 
 }
 
+
+
+//update user 
 exports.updateUser=async(req,res)=>{
      const {id} = req.params;
      const {fname,mobile,address,user_profile}=req.body;
