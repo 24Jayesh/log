@@ -2,6 +2,7 @@ const { response } = require('express');
 const pricelist =require('../models/pricelist')
 
 
+//insert the price 
 exports.insertprice =async(req,res)=>{
    const {clotheType,isPair,services}=req.body;
 
@@ -52,3 +53,43 @@ exports.getPriceList =async(req,res)=>{
 
 }
 
+
+//update th price 
+exports.updateprice= async (req ,res) =>{
+    const {id}=req.params;
+    console.log(id)
+    const {clotheType,isPair,services}=req.body;
+
+    //validation
+    try{
+
+       const updatePriceList = await  pricelist.findByIdAndUpdate({_id:id},{
+                         clotheType,isPair,services
+       },{new:true});
+
+
+       const result = await updatePriceList.save();
+       console.log(result);
+       res.status(200).json({status:'true',message:"price list is updateded"});
+
+    }catch(error){
+        return res.status(400).json({status:"false",error});
+    }
+
+}
+
+
+// delete pricelist 
+exports.deleteprice = async(req,res)=>{
+    const {id}=req.params;
+
+    try{
+         const deletePriceList = await pricelist.findByIdAndDelete({_id:id});
+         res.status(200).json({status:"true",message:"pricelist is deleted"});
+    }
+    catch(error){
+        return  res.status(400).json({status:"false",error})
+    }
+
+
+}

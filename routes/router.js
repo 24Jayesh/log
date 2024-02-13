@@ -24,7 +24,9 @@ router.post("/:id/:token",userControllers.updatepassword);
 
 
 //price list routers,
-router.post("/price",priceControllers.insertprice)
+router.post("/price",priceControllers.insertprice);
+router.put("/priceupdate/:id",priceControllers.updateprice);
+router.delete("/pricedelete/:id",priceControllers.deleteprice)
 
 router.get("/pricelistdetails",priceControllers.getPriceList)
 
