@@ -4,7 +4,7 @@ const router =new express.Router();
 //import controllers 
 const userControllers =require('../Constrollers/usercontrollers')
 const priceControllers =require('../Constrollers/pricecontrollers')
-
+const ordercontroller =require('../Constrollers/ordercontroller')
 //import multer
 const upload =require('../multerconfig/config')
 
@@ -29,5 +29,9 @@ router.put("/priceupdate/:id",priceControllers.updateprice);
 router.delete("/pricedelete/:id",priceControllers.deleteprice)
 
 router.get("/pricelistdetails",priceControllers.getPriceList)
+
+
+//orders
+router.put("/neworder/:id",ordercontroller.orderdata)
 
 module.exports =router;

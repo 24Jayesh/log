@@ -1,5 +1,5 @@
 
-const {Schema,model} =require('mongoose');
+const {Schema,model, trusted} =require('mongoose');
 
 const  OrderSchema =new Schema({
    
@@ -11,19 +11,60 @@ const  OrderSchema =new Schema({
     users:{
         type:Schema.Types.ObjectId,ref:'users',
     },
-    laundry:[{type:Schema.Types.ObjectId,ref:'laundry'}],
+    // laundry:[{type:Schema.Types.ObjectId,ref:'laundry'}],
      
     //  order_data:{
     //     type:Array,
     //     required:true,
     //  },
-     pickupTime:{
+
+    clotheType:{
         type:String,
-        // default: Date.now(),
+        required:true,
+    },
+    
+    wash:{
+        type:Boolean,
+       default:false,
+    
+    },
+    iron:{
+        type:Boolean,
+        default:false,
+    
+    },
+    washAndIron:{
+        type:Boolean,
+        default:true,
+    
+    },
+    price:{
+        
+        type:Number,
+        required:true,
+    },
+    isPair:{
+        type:Boolean,
+        default:false,
+    },
+    quantity:{
+        type:Number,
+        required:true,
+        default:1,
+    },
+
+     pickupTime:{
+        type:Date,
+         default: Date.now(),
         
     },
     deliveryTime:{
-        type:String,
+        type:Date,
+        default:()=>{
+         const currentDate = new Date();
+         currentDate.setDate(currentDate.getDate()+2);
+         return currentDate;
+        }
     },
     status:{
         type:String,
@@ -32,11 +73,27 @@ const  OrderSchema =new Schema({
     },
     isOrdered:{
         type:Boolean,
-        default:false,
+        default:true,
     },
     isCancelled:{
         type:Boolean,
         default :false
+    },
+    isPickUp:{
+        type:Boolean,
+        default:true,
+    },
+    isDelivered:{
+        type:Boolean,
+        default:false,
+    },
+    // isConfirmed:{
+    //      type:Boolean,
+    //      default:true,
+    // },
+    totalAmount:{
+        type:Number,
+  
     }
    
 
