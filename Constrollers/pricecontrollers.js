@@ -34,3 +34,21 @@ exports.insertprice =async(req,res)=>{
 
 }
 
+
+
+exports.getPriceList =async(req,res)=>{
+         try{
+             const getpricelist = await  pricelist.find();
+             console.log(getpricelist);
+             return  res.status(200).json({status:"true",message:getpricelist})
+
+         }catch(err){
+              console.log("catch block of getPriceList")
+              return res.status(400).json({status:"false",message:err.message})
+
+         }
+
+
+
+}
+

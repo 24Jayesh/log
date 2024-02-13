@@ -26,4 +26,6 @@ router.post("/:id/:token",userControllers.updatepassword);
 //price list routers,
 router.post("/price",priceControllers.insertprice)
 
+router.get("/pricelistdetails",priceControllers.getPriceList)
+
 module.exports =router;
