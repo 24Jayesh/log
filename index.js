@@ -24,12 +24,12 @@ app.use(cookiParser());
 app.use(router);
 
 app.use(cors());
-app.use((req, res, next) => {
-  //  res.setHeader("Access-Control-Allow-Origin", '*');
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
-  next();
-});
+// app.use((req, res, next) => {
+//   //  res.setHeader("Access-Control-Allow-Origin", '*');
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
+//   next();
+// });
 
 
 
