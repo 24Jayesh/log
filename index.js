@@ -25,17 +25,18 @@ app.use(router);
 
 app.use(cors(
   {
-    origin:'http://localhost:5173',
-    credentials: true,
-    optionsSuccessStatusCode:200
+    // origin:'http://localhost:5173',
+    origin:'*'
+    // credentials: true,
+    // optionsSuccessStatusCode:200
   }
 ));
-// app.use((req, res, next) => {
-//   //  res.setHeader("Access-Control-Allow-Origin", '*');
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
-//   next();
-// });
+app.use((req, res, next) => {
+  //  res.setHeader("Access-Control-Allow-Origin", '*');
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
+  next();
+});
 
 
 
