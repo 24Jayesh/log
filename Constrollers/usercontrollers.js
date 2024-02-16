@@ -144,12 +144,13 @@ exports.singleuserdetails=async(req,res)=>{
 //update user 
 exports.updateUser=async(req,res)=>{
      const {id} = req.params;
-     const {fname,mobile,address,user_profile}=req.body;
+     const file=req.file.filename;
+     const {fname,mobile,address}=req.body;
 
     
         try{ 
             const updateuser = await newUser.findByIdAndUpdate({_id:id},{
-                fname,mobile,address,user_image:user_profile
+                fname,mobile,address,user_image:file
         },{new:true})
        
     
