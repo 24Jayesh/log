@@ -15,7 +15,7 @@ const PORT=process.env.PORT;  //5001
 
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://log-g5ki-biek93lua-patidarjayeshs-projects.vercel.app']
+  origin:'http://localhost:5173'
 }
 ))
 // app.use(bodyParser.json({ limit: '50mb' }));
