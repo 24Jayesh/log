@@ -11,7 +11,7 @@ const upload =require('../multerconfig/config')
 
 
 //routers
-router.post("/register",upload.single("user_profile"),userControllers.addUser);
+router.post("/register",userControllers.addUser);
 router.post("/login",userControllers.loginuser);
 router.get('/userdetails',userControllers.userdetails);
 router.get('/singleuserdetails',userControllers.singleuserdetails);
