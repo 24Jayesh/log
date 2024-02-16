@@ -144,8 +144,8 @@ exports.singleuserdetails=async(req,res)=>{
 //update user 
 exports.updateUser=async(req,res)=>{
      const {id} = req.params;
-     const file=req.file.filename;
-     const {fname,mobile,address}=req.body;
+     const {fname,mobile,address,user_profile}=req.body;
+     const file=req.file ? req.file.filename : user_profile;
 
     
         try{ 
