@@ -14,15 +14,7 @@ const PORT=process.env.PORT;  //5001
 
 
 app.use(express.json());
-app.use(cors(
-  {
-    origin:'http://localhost:5173',
-    // origin:'*',
-    methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-    optionsSuccessStatusCode:200
-  }
-));
+app.use(cors())
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({extended:false}));
