@@ -13,29 +13,15 @@ const router =require('./routes/router');
 const PORT=process.env.PORT;  //5001
 
 
-//middleware
-
-// const { createProxyMiddleware } = require('http-proxy-middleware');
-
-
-//   app.use(
-//     '/api',
-//     createProxyMiddleware({
-//       target: 'https://log-g5ki.vercel.app/',  // Your backend server URL
-//       changeOrigin: true,
-//     })
-//   );
-
-
-
 app.use(express.json());
 app.use(cors(
-  // {
-  //   // origin:'http://localhost:5173',
-  //   origin:'*'
-  //   // credentials: true,
-  //   // optionsSuccessStatusCode:200
-  // }
+  {
+    origin:'http://localhost:5173',
+    // origin:'*',
+    methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatusCode:200
+  }
 ));
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -45,12 +31,12 @@ app.use(cookiParser());
 app.use(router);
 
 
-app.use((req, res, next) => {
- res.setHeader("Access-Control-Allow-Origin", '*');
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
-  next();
-});
+// app.use((req, res, next) => {
+//  res.setHeader("Access-Control-Allow-Origin", '*');
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
+//   next();
+// });
 
 
 

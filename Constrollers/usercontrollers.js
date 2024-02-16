@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 
 //for user registration 
 exports.addUser=async(req,res)=>{
-    const file=req.file.filename;
+    // const file=req.file.filename;
     // console.log(file);
      const {fname,mobile,email,password,cpassword,address}=req.body;
      
@@ -41,7 +41,7 @@ exports.addUser=async(req,res)=>{
                return res.status(400).json({status:"false",error:"Password and Confirm Password does not match"});
             }else{
                 const finalUser =  new newUser({
-                    fname,mobile,email,password,cpassword,address,user_image:file
+                    fname,mobile,email,password,cpassword,address
                 });
 
             //password hasing 
