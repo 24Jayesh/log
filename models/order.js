@@ -94,6 +94,10 @@ const  OrderSchema =new Schema({
     totalAmount:{
         type:Number,
   
+    },
+    ispayment:{
+        type:Boolean,
+        default:false,
     }
    
 

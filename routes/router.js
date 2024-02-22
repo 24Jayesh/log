@@ -5,7 +5,7 @@ const router =new express.Router();
 const userControllers =require('../Constrollers/usercontrollers')
 const priceControllers =require('../Constrollers/pricecontrollers')
 const ordercontroller =require('../Constrollers/ordercontroller')
-
+const paymenttestController =require('../Constrollers/paymentcontroller')
 
 //import multer
 const upload =require('../multerconfig/config')
@@ -36,4 +36,10 @@ router.get("/pricelistdetails",priceControllers.getPriceList)
 //orders
 router.put("/neworder/:id",ordercontroller.orderdata)
 
+//payments
+// router.post("/payment-create",paymenttestController.paymentcreate)
+// router.post("/payment-confirm",paymenttestController.paymentconfirm)
+// router.post("/create-payment-intent",paymenttestController.paymentintent)
+
+router.post("/checkout",paymenttestController.pay)
 module.exports =router;
