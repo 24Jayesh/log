@@ -14,10 +14,7 @@ const PORT=process.env.PORT;  //5001
 
 
 app.use(express.json());
-app.use(cors({
-  origin:'http://localhost:5173'
-}
-))
+app.use(cors())
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({extended:false}));
@@ -26,12 +23,12 @@ app.use(cookiParser());
 app.use(router);
 
 
-app.use((req, res, next) => {
- res.setHeader("Access-Control-Allow-Origin", 'http://localhost:5173');
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
-  next();
-});
+// app.use((req, res, next) => {
+//  res.setHeader("Access-Control-Allow-Origin", 'http://localhost:5173');
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Origin, Accept");
+//   next();
+// });
 
 
 
